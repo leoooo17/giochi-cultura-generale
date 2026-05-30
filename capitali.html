@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Indovina la Capitale</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🌍 Indovina la Capitale</h1>
+
+<h2 id="stato"></h2>
+
+<input type="text" id="risposta" placeholder="Scrivi la capitale">
+
+<br><br>
+
+<button onclick="controlla()">✔ Controlla</button>
+
+<p id="messaggio"></p>
+<p id="punteggio"></p>
+
+<script>
+
+const domande = [
+    {stato: "Francia", capitale: "Parigi"},
+    {stato: "Italia", capitale: "Roma"},
+    {stato: "Spagna", capitale: "Madrid"},
+    {stato: "Germania", capitale: "Berlino"},
+    {stato: "Giappone", capitale: "Tokyo"}
+];
+
+let indice = 0;
+let punti = 0;
+
+function mostra() {
+    document.getElementById("stato").innerText =
+        "Qual è la capitale di: " + domande[indice].stato;
+
+    document.getElementById("risposta").value = "";
+    document.getElementById("messaggio").innerText = "";
+}
+
+function controlla() {
+
+    let rispostaUtente = document.getElementById("risposta").value;
+
+    if (rispostaUtente.toLowerCase() === domande[indice].capitale.toLowerCase()) {
+        punti++;
+        document.getElementById("messaggio").innerText = "✅ Corretto!";
+        document.getElementById("messaggio").style.color = "lightgreen";
+    } else {
+        document.getElementById("messaggio").innerText =
+            "❌ Sbagliato! Era: " + domande[indice].capitale;
+        document.getElementById("messaggio").style.color = "red";
+    }
+
+    indice++;
+
+    if (indice < domande.length) {
+        setTimeout(mostra, 1000);
+    } else {
+        fine();
+    }
+}
+
+function fine() {
+    document.getElementById("stato").innerText = "🎉 Gioco finito!";
+    document.getElementById("messaggio").innerText = "";
+    document.getElementById("punteggio").innerText =
+        "Hai totalizzato " + punti + " / " + domande.length;
+}
+
+mostra();
+
+</script>
+
+</body>
+</html>

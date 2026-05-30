@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🧠 Quiz Pro</h1>
+
+<h2 id="domanda"></h2>
+
+<div id="risposte"></div>
+
+<p id="punteggio"></p>
+
+<button onclick="ricomincia()">🔄 Ricomincia</button>
+
+<script>
+const quiz = [
+    {
+        domanda: "Qual è la capitale della Francia?",
+        risposte: ["Roma", "Parigi", "Madrid", "Berlino"],
+        corretta: "Parigi"
+    },
+    {
+        domanda: "Qual è la capitale dell'Italia?",
+        risposte: ["Milano", "Napoli", "Roma", "Torino"],
+        corretta: "Roma"
+    },
+    {
+        domanda: "Qual è la capitale della Spagna?",
+        risposte: ["Barcellona", "Madrid", "Siviglia", "Valencia"],
+        corretta: "Madrid"
+    },
+    {
+        domanda: "Qual è la capitale della Germania?",
+        risposte: ["Berlino", "Monaco", "Francoforte", "Amburgo"],
+        corretta: "Berlino"
+    },
+    {
+        domanda: "Qual è la capitale del Giappone?",
+        risposte: ["Seoul", "Tokyo", "Pechino", "Bangkok"],
+        corretta: "Tokyo"
+    }
+];
+
+let indice = 0;
+let punteggio = 0;
+
+function mostraDomanda() {
+    let q = quiz[indice];
+
+    document.getElementById("domanda").innerText = q.domanda;
+
+    let box = document.getElementById("risposte");
+    box.innerHTML = "";
+
+    q.risposte.forEach(r => {
+        let btn = document.createElement("button");
+        btn.innerText = r;
+        btn.onclick = () => controlla(r);
+        box.appendChild(btn);
+    });
+
+    document.getElementById("punteggio").innerText =
+        "Punteggio: " + punteggio + " / " + quiz.length;
+}
+
+function controlla(risposta) {
+    if (risposta === quiz[indice].corretta) {
+        punteggio++;
+    }
+
+    indice++;
+
+    if (indice < quiz.length) {
+        mostraDomanda();
+    } else {
+        fineGioco();
+    }
+}
+
+function fineGioco() {
+    document.getElementById("domanda").innerText = "🎉 Quiz finito!";
+    document.getElementById("risposte").innerHTML = "";
+
+    document.getElementById("punteggio").innerText =
+        "Hai totalizzato " + punteggio + " / " + quiz.length;
+}
+
+function ricomincia() {
+    indice = 0;
+    punteggio = 0;
+    mostraDomanda();
+}
+
+mostraDomanda();
+</script>
+
+</body>
+</html>

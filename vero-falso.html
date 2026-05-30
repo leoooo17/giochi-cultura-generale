@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Vero o Falso</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>✅ Vero o Falso</h1>
+
+<h2 id="frase"></h2>
+
+<button onclick="rispondi(true)">Vero</button>
+<button onclick="rispondi(false)">Falso</button>
+
+<p id="messaggio"></p>
+<p id="punteggio"></p>
+
+<script>
+
+const domande = [
+    {frase: "Il sole è una stella", risposta: true},
+    {frase: "La Terra è piatta", risposta: false},
+    {frase: "L'acqua bolle a 100 gradi", risposta: true},
+    {frase: "La capitale della Francia è Roma", risposta: false},
+    {frase: "Il cuore pompa il sangue", risposta: true}
+];
+
+let indice = 0;
+let punti = 0;
+
+function mostra() {
+    document.getElementById("frase").innerText =
+        domande[indice].frase;
+
+    document.getElementById("messaggio").innerText = "";
+}
+
+function rispondi(valore) {
+
+    if (valore === domande[indice].risposta) {
+        punti++;
+        document.getElementById("messaggio").innerText = "✅ Corretto!";
+        document.getElementById("messaggio").style.color = "lightgreen";
+    } else {
+        document.getElementById("messaggio").innerText = "❌ Sbagliato!";
+        document.getElementById("messaggio").style.color = "red";
+    }
+
+    indice++;
+
+    if (indice < domande.length) {
+        setTimeout(mostra, 1000);
+    } else {
+        fine();
+    }
+}
+
+function fine() {
+    document.getElementById("frase").innerText = "🎉 Gioco finito!";
+    document.getElementById("messaggio").innerText = "";
+    document.getElementById("punteggio").innerText =
+        "Hai totalizzato " + punti + " / " + domande.length;
+}
+
+mostra();
+
+</script>
+
+</body>
+</html>
